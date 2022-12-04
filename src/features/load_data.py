@@ -74,7 +74,7 @@ class ProcessedData:
 
         trends = [[None, None, None] for _ in range(len(sequences))]
         for idx, seq in enumerate(sequences):
-            trends[idx][0] = self.min_segment_length  # duration
+            trends[idx][0] = seq[1] - seq[0]  # duration
             trends[idx][1] = self.__calculate_slope(self.x[seq[0]:seq[1]+1], self.y[seq[0]:seq[1]+1])
             trends[idx][2] = [self.y[i] for i in range(seq[0], seq[1])]
 
