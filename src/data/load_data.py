@@ -1,13 +1,10 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 import torch
 import torch.nn as nn
 import torch.optim as optim
 import datetime
-import os
 
 class ProcessedData:
     def __init__(self, path,  max_error, min_segment_length):
@@ -145,11 +142,11 @@ class ProcessedData:
                     min_seg_idx -= 1
 
                 replace = min_seg_idx
-                first_half, second_half = segments[min_seg_idx][0], min(self.max_idx, segments[min_seg_idx + 1][1])
+                first_half, second_half = segments[min_seg_idx][0], min(self.max_idx, segments[min_seg_idx+1][1])
 
             # merge segments
             if replace:
-                segments[replace] = [segments[first_half], segments[second_half]]
+                segments[replace] = [first_half, second_half]
                 segments.pop(replace+1)
             else:
                 fully_merged = True
