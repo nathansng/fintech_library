@@ -9,7 +9,7 @@ def preprocess_data(trends, points, device, feature_cfg):
     from samples from the data
     """
     trend_X, trend_y = extract_data(trends, **feature_cfg)
-    points_X = points[:feature_cfg['num_input']+feature_cfg['num_output']]
+    points_X = points[feature_cfg['num_input']+feature_cfg['num_output']:]
 
     X_train_trend, y_train_trend, X_valid_trend, y_valid_trend, X_test_trend, y_test_trend = train_valid_test_split(trend_X, trend_y, device=device)
 
@@ -36,11 +36,11 @@ def convert_data_points(data):
     """
 
     # Extract trends data
-    trends = data[['duration', 'slope']]
+    trends = data[['trend_duration', 'trend_slope']]
     trends = torch.tensor(trends.values)
 
     # Extract data points
-    data_pts = data['data_points'].apply(ast.literal_eval)
+    data_pts = data['trend_points'].apply(ast.literal_eval)
     data_pts = pad_data(data_pts)
     data_pts = torch.tensor(data_pts)
 

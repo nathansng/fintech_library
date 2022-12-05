@@ -11,8 +11,6 @@ from src.data import load_data
 from src.features import preprocessing, Scaler
 from src.models import TreNet, CNN, LSTM, train_models, setup
 
-import pandas as pd
-
 def main(targets):
     # Check device to store and run model on
     device = setup.find_device()
@@ -35,8 +33,6 @@ def main(targets):
         with open('config/feature_params.json') as f:
             feature_cfg = json.load(f)
 
-        data = pd.read_csv('./data/processed/processed_trends_10.csv')
-
         # Turn dataframe into tensors
         trends, points = preprocessing.convert_data_points(data)
 
@@ -50,17 +46,17 @@ def main(targets):
         (X_train_trend, y_train_trend, X_valid_trend, y_valid_trend, X_test_trend, y_test_trend), (X_train_points, X_valid_points, X_test_points) = preprocessing.preprocess_data(scaled_trends, scaled_points, device, feature_cfg)
 
 
-    # if 'model' in targets:
-    #     with open('config/model_params.json') as f:
-    #         model_cfg = json.load(f)
-    #     with open('config/training_params.json') as f:
-    #         training_cfg = json.load(f)
+    if 'model' in targets:
+        with open('config/model_params.json') as f:
+            model_cfg = json.load(f)
+        with open('config/training_params.json') as f:
+            training_cfg = json.load(f)
 
-    #     model = TreNet.TreNet(device=device, LSTM_params=model_cfg['LSTM'], CNN_params=model_cfg['CNN'], **model_cfg['TreNet'])
-    #     loss_fn = nn.MSELoss()
-    #     optimizer = optim.Adam(model.parameters(), lr=training_cfg['learning_rate'])
+        model = TreNet.TreNet(device=device, LSTM_params=model_cfg['LSTM'], CNN_params=model_cfg['CNN'], **model_cfg['TreNet']).to(device)
+        loss_fn = nn.MSELoss()
+        optimizer = optim.Adam(model.parameters(), lr=training_cfg['learning_rate'])
 
-    #     training_loss = train_models.train_loop(training_cfg['num_epochs'], [X_train_trend, X_train_points], y_train_trend.reshape(y_train_trend.shape[0], 2), model, loss_fn, optimizer, printout=True, record_loss=True)
+        training_loss = train_models.train_loop(training_cfg['num_epochs'], [X_train_trend, X_train_points], y_train_trend.reshape(y_train_trend.shape[0], 2), model, loss_fn, optimizer, printout=True, record_loss=True)
 
 
 if __name__ == '__main__':
