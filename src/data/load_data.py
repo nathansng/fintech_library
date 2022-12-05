@@ -136,21 +136,17 @@ class ProcessedData:
             # find spots to merge if necessary
             replace, first_half, second_half = None, None, None
             if min_merge_error < self.max_error:
-                replace = min_merge_idx
-                first_half, second_half = segments[min_merge_idx][0], min(self.max_idx, segments[min_merge_idx+1][1])
+                segments[min_merge_idx] = [segments[min_merge_idx][0], min(self.max_idx, segments[min_merge_idx+1][1])]
+                segments.pop(min_merge_idx+1)
 
             elif min_seg_length < self.min_segment_length:
                 if min_seg_idx == len(segments) - 1:
                     min_seg_idx -= 1
-
-                replace = min_seg_idx
-                first_half, second_half = segments[min_seg_idx][0], min(self.max_idx, segments[min_seg_idx+1][1])
-
-            # merge segments
-            if replace:
-                segments[replace] = [first_half, second_half]
-                segments.pop(replace+1)
-            else:
+                    
+                segments[min_seg_idx] = [segments[min_seg_idx][0], min(self.max_idx, segments[min_seg_idx+1][1])]
+                segments.pop(min_seg_idx+1)
+                      
+            else: 
                 fully_merged = True
 
         return segments
