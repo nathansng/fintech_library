@@ -1,4 +1,4 @@
 {
-    "num_epochs": 10,
-    "learning_rate": 0.01
+    "num_epochs": 4000,
+    "learning_rate": 0.001
 }
