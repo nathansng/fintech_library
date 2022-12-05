@@ -7,8 +7,7 @@ import torch.optim as optim
 import datetime
 
 class ProcessedData:
-    def __init__(self, path,  max_error, min_segment_length):
-        self.path = path
+    def __init__(self,  max_error, min_segment_length):
         self.d = None
         self.transformed_d = None
         self.x = None
@@ -20,24 +19,24 @@ class ProcessedData:
         self.min_segment_length = min_segment_length
 
 
-    def load_raw_data(self, y_col, Index=None):
+    def load_raw_data(self, path, date_col, price_col, Index=None):
         """
         Loads data from csv file to pandas dataframe
         :param y_col: target column
         :param Index: custom index
         :return: None
         """
-        df = pd.read_csv(self.path)
+        df = pd.read_csv(path)
 
         if Index:
             df = df[df["Index"] == Index]
 
-        df['numerical_date'] = df["Date"].apply(lambda date: datetime.datetime.strptime(date, "%Y-%m-%d"))
-        df['x'] = (df["numerical_date"] - df["numerical_date"].min()).dt.days
+        df['numerical_date'] = df[date_col].apply(lambda date: datetime.datetime.strptime(date, "%Y-%m-%d"))
+        df['date_index'] = (df["numerical_date"] - df["numerical_date"].min()).dt.days
 
         self.d = df
-        self.x = np.array(self.d['x'])
-        self.y = np.array(self.d[y_col])
+        self.x = np.array(self.d['date_index'])
+        self.y = np.array(self.d[price_col])
         self.len_data = self.d.shape[0]
         self.max_idx = len(self.x) - 1
         return None
@@ -48,7 +47,7 @@ class ProcessedData:
         Transform original data to pandas dataframe containing information about trends
         trends[i] = [trend_duration[i], trend_slope[i], original data points that make up trends[i]]
 
-        :return: None
+        :return: Dataframe of processed data
         """
 
         # set buffer and lower and upper bounds
@@ -77,7 +76,7 @@ class ProcessedData:
 
         #     return torch.tensor(trends, dtype=torch.float)
         self.transformed_d = pd.DataFrame(trends, columns=["trend_duration", "trend_slope", "trend_points"])
-        return None
+        return self.transformed_d
 
 
     def best_line(self, i, upper_bound):
