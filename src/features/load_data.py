@@ -23,10 +23,9 @@ class ProcessedData:
         self.min_segment_length = min_segment_length
 
 
-    def load_raw_data(self, x_col, y_col, Index=None):
+    def load_raw_data(self, y_col, Index=None):
         """
         Loads data from csv file to pandas dataframe
-        :param x_col: feature column
         :param y_col: target column
         :param Index: custom index
         :return: None
@@ -37,11 +36,10 @@ class ProcessedData:
             df = df[df["Index"] == Index]
 
         df['numerical_date'] = df["Date"].apply(lambda date: datetime.datetime.strptime(date, "%Y-%m-%d"))
-        df[x_col] = (df["numerical_date"] - df["numerical_date"].min()).dt.days
+        df['x'] = (df["numerical_date"] - df["numerical_date"].min()).dt.days
 
-        t = df.loc[:, "Open"].reset_index(drop=True)
         self.d = df
-        self.x = np.array(self.d[x_col])
+        self.x = np.array(self.d['x'])
         self.y = np.array(self.d[y_col])
         self.len_data = self.d.shape[0]
         self.max_idx = len(self.x) - 1
