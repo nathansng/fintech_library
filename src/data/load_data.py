@@ -108,7 +108,7 @@ class ProcessedData:
                  segments[i] = [starting index of segments[i], ending index of segments[i]]
         """
         # print(f"Performing bottom_up with i={i}, j={j}, max_error={self.max_error}")
-        segments = [[k, k + 2] for k in range(i, j, self.min_segment_length // 4)]
+        segments = [[k, k + 2] for k in range(i, j, 2)]
 
         fully_merged = False
         while not fully_merged:
@@ -164,7 +164,10 @@ class ProcessedData:
         :return: error
         """
         A = np.vstack([x, np.ones(len(x))]).T
-        error = np.linalg.lstsq(A, y, rcond=None)[1][0]
+        try:
+            error = np.linalg.lstsq(A, y, rcond=None)[1][0]
+        except IndexError:
+            error = 0
 
         return error
 
