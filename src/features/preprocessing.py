@@ -40,7 +40,9 @@ def convert_data_points(data):
     trends = torch.tensor(trends.values)
 
     # Extract data points
-    data_pts = data['trend_points'].apply(ast.literal_eval)
+    data_pts = data['trend_points']
+    if type(data_pts[0]) == str: 
+        data_pts = data_pts.apply(ast.literal_eval)
     data_pts = pad_data(data_pts)
     data_pts = torch.tensor(data_pts)
 
