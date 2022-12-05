@@ -3,8 +3,8 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from LSTM import LSTM
-from CNN import TreNetCNN
+from .LSTM import LSTM
+from .CNN import TreNetCNN
 
 
 class TreNet(nn.Module):
@@ -14,6 +14,10 @@ class TreNet(nn.Module):
         # Set number of parameters for feature fusion layer
         LSTM_params['output_dim'] = feature_fusion
         CNN_params['output_size'] = feature_fusion
+
+        # Set device for all models
+        LSTM_params['device'] = device
+        CNN_params['device'] = device
 
         self.lstm = LSTM(**LSTM_params)
         self.cnn = TreNetCNN(**CNN_params)
@@ -42,3 +46,5 @@ class TreNet(nn.Module):
         # Run outputs through feature fusion layer
         output = self.fusion(feature_in)
         return output
+
+
