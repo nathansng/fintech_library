@@ -1,0 +1,11 @@
+{
+    "init": {
+        "max_error": 1000,
+        "min_segment_length": 10
+    },
+    "load": {
+        "path": "./data/raw/indexProcessed.csv",
+        "date_col": "Date",
+        "price_col": "Close"
+    }
+}

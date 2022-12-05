@@ -1,0 +1,18 @@
+{
+    "TreNet": {
+        "feature_fusion": 32,
+        "output_dim": 2
+    },
+    "LSTM": {
+        "input_dim": 2,
+        "hidden_dim": 32,
+        "num_layers": 1
+    },
+    "CNN": {
+        "num_data": 10,
+        "layers": 2,
+        "num_filters": [32, 32],
+        "dropout": [0.1, 0.1],
+        "conv_size": [2, 4]
+    }
+}
