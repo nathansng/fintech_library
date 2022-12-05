@@ -26,7 +26,7 @@ class LSTM(nn.Module):
 
         # Reshape data if needed
         if len(x.shape) != 3:
-            x = x.reshape(x.shape[0], -1, self.input_dim)
+            x = x.reshape(x.shape[0], -1, self.input_dim).to(self.device)
 
         # Run data through model
         out, (hn, cn) = self.lstm(x, (h0, c0))
