@@ -108,7 +108,8 @@ class ProcessedData:
                  segments[i] = [starting index of segments[i], ending index of segments[i]]
         """
         # print(f"Performing bottom_up with i={i}, j={j}, max_error={self.max_error}")
-        segments = [[k, k + 2] for k in range(i, j, self.min_segment_length // 4)]
+        segment_increase = self.min_segment_length//4
+        segments = [[k, k + 2] for k in range(i, j, 2)]
 
         fully_merged = False
         while not fully_merged:
