@@ -2,7 +2,7 @@
 
 ### Step 1: Create ProcessedData object
 
-- Initialize ProcessdData object
+- Initialize ProcessedData object
 
 ### Step 2: Load raw data
 
@@ -13,5 +13,4 @@
 - Call object_name.process_data()
 
 ### Step 3: Save processed data in .csv file
-
 - Call object_name.to_csv(file_path)
