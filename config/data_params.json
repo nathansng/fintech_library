@@ -6,6 +6,7 @@
     "load": {
         "path": "./data/raw/indexProcessed.csv",
         "date_col": "Date",
-        "price_col": "Close"
+        "price_col": "Close",
+        "Index": "NYA"
     }
 }
