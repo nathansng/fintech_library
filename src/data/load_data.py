@@ -67,6 +67,8 @@ class ProcessedData:
             i = w
             w = min(i + int(min(upper_bound, max(lower_bound, self.best_line(i, upper_bound)))), self.len_data)
 
+            print(f"{round(i/self.len_data * 100, 2)}% data processed \n")
+
         trends = [[None, None, None] for _ in range(len(sequences))]
         for idx, seq in enumerate(sequences):
             trends[idx][0] = seq[1] - seq[0]  # duration
