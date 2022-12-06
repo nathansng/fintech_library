@@ -7,7 +7,7 @@ This repo focuses on the initial implementations of time series forecasting mode
 
 ### Downloading Data
 
-Our data is downloaded from Kaggle.com. The dataset that we used for our experiment is the Stock Exchange Data created by Cody in 2018. The dataset is available at: https://www.kaggle.com/datasets/mattiuzc/stock-exchange-data. The dataset we used from this Kaggle dataset is "indexProcessed.csv". Save the csv file in the path "data/raw/". 
+Our data is downloaded from Kaggle.com. The dataset that we used for our experiment is the Stock Exchange Data created by Cody in 2018. The dataset is available at: https://www.kaggle.com/datasets/mattiuzc/stock-exchange-data. The dataset we used from this Kaggle dataset is "indexProcessed.csv". Save the csv file in the path `./data/raw/`. 
 
 ### Models 
 
@@ -40,6 +40,30 @@ TreNet takes the predicted results from both CNN and LSTM, and combines them usi
 - Hyperparameters of CNN
 - size of feature fusion layer
 - output size 
+
+
+### Running Code
+
+*Note*: Running the code on a gpu will make the program run significantly faster than only cpu
+
+To run the code, run `python run.py [target]` to run the corresponding target. The available targets and their description are listed below: 
+
+- `all`: Runs all targets using actual data, data path can be specified in `./config/data_params.json` file
+
+- `test`: Runs all targets using test data, test data can be found in `./test/testdata/testdata.csv`, test path can be specified in `./config/test_data_params.json` file
+
+- `data`: Runs the data and feature loading code, which opens a dataset and converts the dataset into trend durations and slopes
+  - Configure parameters in `./config/data_params.json`
+
+- `features`: Runs the preprocessing code for the trends and stock data, normalizes all data, and splits data into training and testing sets for machine learning model use 
+  - Configure parameters in `./config/feature_params.json`
+
+- `model`: Runs the machine learning model training code 
+  - Configure model parameters in `./config/model_params.json`
+  - Configure training parameters in `./config/training_params.json`
+
+- `visual`: Runs the loss plot visualization code which stores a line plot of the loss per epoch to a path 
+  - Configure parameters in `./config/visual_params.json`
 
 
 
