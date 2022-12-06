@@ -44,7 +44,7 @@ TreNet takes the predicted results from both CNN and LSTM, and combines them usi
 
 ### Running Code
 
-*Note*: Running the code on a gpu will make the program run significantly faster than only cpu
+*Note*: Running the code on a gpu will make the program run significantly faster than only cpu. The code also benefits with more RAM, as too low of memory will kill the process. 
 
 To run the code, run `python run.py [target]` to run the corresponding target. The available targets and their description are listed below: 
 
