@@ -3,11 +3,15 @@
 ## DSC 180A Quarter 1 Project 
 
 The goal of this project is to create a deep learning and machine learning library that allows users to easily create and deploy machine learning models for finance related tasks. 
-This repo focuses on implementing time series forecasting model. 
+This repo focuses on the initial implementations of time series forecasting model and will eventually be built upon in quarter 2 and combined with models made by the NLP group. 
 
-Our data is download from Kaggle.com. The dataset that we used for our experiment is the Stock Exchange Data created by Cody in 2018. The dataset is available at: https://www.kaggle.com/datasets/mattiuzc/stock-exchange-data. 
+### Downloading Data
 
-The following models have been implemented or is planned to be included in the library. 
+Our data is downloaded from Kaggle.com. The dataset that we used for our experiment is the Stock Exchange Data created by Cody in 2018. The dataset is available at: https://www.kaggle.com/datasets/mattiuzc/stock-exchange-data. The dataset we used from this Kaggle dataset is "indexProcessed.csv". Save the csv file in the path "data/raw/". 
+
+### Models 
+
+The following models have been implemented in the current implementation of the library. 
 
 - CNN
 - LSTM
@@ -30,7 +34,13 @@ The Long Short Term Memory takes the trends' slope and duration, which are extra
 - output size
 - learning rate.
 
-TreNet takes the predicted results from both CNN and LSTM, and combines them using a fully connected layer to generate the predicted output. 
+TreNet takes the predicted results from both CNN and LSTM, and combines them using a fully connected layer to generate the predicted output. The tunable parameters of TreNet are as follows: 
+
+- Hyperparameters of LSTM 
+- Hyperparameters of CNN
+- size of feature fusion layer
+- output size 
+
 
 
 
