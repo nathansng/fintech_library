@@ -8,3 +8,8 @@ This repo focuses on implementing time series forecasting model. The following m
 - CNN
 - LSTM
 - TreNet
+
+Our data is download from Kaggle.com. The dataset that we used for our experiment is the Stock Exchange Data created by Cody in 2018. The dataset is available at: https://www.kaggle.com/datasets/mattiuzc/stock-exchange-data. 
+
+
+
