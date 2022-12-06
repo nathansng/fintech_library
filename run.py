@@ -15,10 +15,23 @@ from src.visualization import loss_visuals
 def main(targets):
     # Check device to store and run model on
     device = setup.find_device()
+       
+    if 'all' in targets: 
+        print("Running program on data\n")
+        targets += ['data', 'features', 'model', 'visual']
+        
+        # Load in actual data configurations
+        with open('config/data_params.json') as f:
+            data_cfg = json.load(f)
+        
 
     if 'test' in targets:
         print("Running program on test data\n")
         targets += ['data', 'features', 'model', 'visual']
+        
+        # Load in test data configurations
+        with open('config/test_data_params.json') as f:
+            data_cfg = json.load(f)
 
 
     if 'data' in targets:
@@ -26,8 +39,6 @@ def main(targets):
         print("Loading in trends data\n") 
         
         # Load in data and separate into train, test sets
-        with open('config/data_params.json') as f:
-            data_cfg = json.load(f)
         processing = load_data.ProcessedData(**data_cfg['init'])
         processing.load_raw_data(**data_cfg['load'])
         data = processing.process_data()
@@ -69,6 +80,7 @@ def main(targets):
 
         # Train model
         training_loss = train_models.train_loop(training_cfg['num_epochs'], [X_train_trend, X_train_points], y_train_trend.reshape(y_train_trend.shape[0], 2), model, loss_fn, optimizer, printout=True, record_loss=True)
+        
         
     if 'visual' in targets: 
         print("Running visual target\n")

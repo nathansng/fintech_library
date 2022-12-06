@@ -4,9 +4,8 @@
         "min_segment_length": 10
     },
     "load": {
-        "path": "./data/raw/indexProcessed.csv",
+        "path": "./test/testdata/testdata.csv",
         "date_col": "Date",
-        "price_col": "Close", 
-        "Index": "NYA"
+        "price_col": "Close"
     }
 }
