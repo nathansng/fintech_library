@@ -15,29 +15,32 @@ from src.visualization import loss_visuals
 def main(targets):
     # Check device to store and run model on
     device = setup.find_device()
-       
-    if 'all' in targets: 
+    test = False
+
+    if 'all' in targets:
         print("Running program on data\n")
         targets += ['data', 'features', 'model', 'visual']
-        
-        # Load in actual data configurations
-        with open('config/data_params.json') as f:
-            data_cfg = json.load(f)
-        
+
 
     if 'test' in targets:
         print("Running program on test data\n")
         targets += ['data', 'features', 'model', 'visual']
-        
-        # Load in test data configurations
-        with open('config/test_data_params.json') as f:
-            data_cfg = json.load(f)
+        test = True
 
 
     if 'data' in targets:
         print("Running data target\n")
-        print("Loading in trends data\n") 
-        
+        print("Loading in trends data\n")
+
+        if test:
+            # Load in test data configurations
+            with open('config/test_data_params.json') as f:
+                data_cfg = json.load(f)
+        else:
+            # Load in actual data configurations
+            with open('config/data_params.json') as f:
+                data_cfg = json.load(f)
+
         # Load in data and separate into train, test sets
         processing = load_data.ProcessedData(**data_cfg['init'])
         processing.load_raw_data(**data_cfg['load'])
@@ -47,7 +50,7 @@ def main(targets):
     if 'features' in targets:
         print("Running features target\n")
         print("Preprocessing data...\n")
-        
+
         with open('config/feature_params.json') as f:
             feature_cfg = json.load(f)
 
@@ -67,7 +70,7 @@ def main(targets):
     if 'model' in targets:
         print("Running model target\n")
         print("Training model...\n")
-        
+
         with open('config/model_params.json') as f:
             model_cfg = json.load(f)
         with open('config/training_params.json') as f:
@@ -80,16 +83,16 @@ def main(targets):
 
         # Train model
         training_loss = train_models.train_loop(training_cfg['num_epochs'], [X_train_trend, X_train_points], y_train_trend.reshape(y_train_trend.shape[0], 2), model, loss_fn, optimizer, printout=True, record_loss=True)
-        
-        
-    if 'visual' in targets: 
+
+
+    if 'visual' in targets:
         print("Running visual target\n")
         print("Creating loss visualization...\n")
-        
+
         with open('config/visual_params.json') as f:
             visual_cfg = json.load(f)
-        
-        # Visualize loss per epoch and save plot 
+
+        # Visualize loss per epoch and save plot
         loss_visuals.create_dir(visual_cfg['path'])
         loss_visuals.visualize_loss(training_loss, **visual_cfg)
 
