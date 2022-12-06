@@ -1,0 +1,4 @@
+{
+    "dockerhub-id": "n3ng/dsc180-docker:latest",
+    "build-script": "python run.py"
+}
