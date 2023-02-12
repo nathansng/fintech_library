@@ -79,7 +79,7 @@ def main(targets):
             training_cfg = json.load(f)
 
         # Initialize model, loss, optimizer
-        model = TreNet.TreNet(device=device, LSTM_params=model_cfg['LSTM'], CNN_params=model_cfg['CNN'], **model_cfg['TreNet']).to(device)
+        model = TreNet.TreNet(device=device, LSTM_params=model_cfg['TreNet']['LSTM'], CNN_params=model_cfg['TreNet']['CNN'], **model_cfg['TreNet']['TreNet']).to(device)
         loss_fn = nn.MSELoss()
         optimizer = optim.Adam(model.parameters(), lr=training_cfg['learning_rate'])
 
