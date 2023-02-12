@@ -19,7 +19,7 @@ def main(targets):
     test = False
     
     # Check if model specified 
-    if 'lstm' not in targets and 'cnn' not in 'targets' and 'trenet' not in targets:
+    if 'lstm' not in targets and 'cnn' not in targets and 'trenet' not in targets:
         print("Specify model to run: lstm, cnn, trenet")
         print("Running Default Model: TreNet")
         targets += ['trenet']
@@ -137,6 +137,44 @@ def main(targets):
 
             # Initialize model, loss, optimizer
             model = LSTM.LSTM(device=device, **model_cfg['LSTM']).to(device)
+            loss_fn = nn.MSELoss()
+            optimizer = optim.Adam(model.parameters(), lr=training_cfg['learning_rate'])
+
+            # Train model
+            train_loss, val_loss = train_models.train_loop(training_cfg['num_epochs'], X_train, y_train, model, loss_fn, optimizer, X_val=X_val, y_val=y_val, printout=True, record_loss=True)
+            
+    # Run CNN model
+    if 'cnn' in targets: 
+        if 'data' in targets:
+            print("Running data target\n")
+            print("Loading in time series data\n")
+
+            # Load data and apply linear approximation
+            dl = DataLoader(**data_cfg['load'])
+            data = dl.data.loc[:, "Close"].reset_index(drop=True)
+
+
+        if 'features' in targets:
+            print("Running features target\n")
+            print("Preprocessing data...\n")
+            
+            # Normalize data
+            scaler = Scaler.Scaler()
+            data = scaler.fit_transform(data).to(device)
+            
+            # Create batches to train on
+            X, y = preprocessing.extract_data(data, **feature_cfg)
+            
+            # Create train, validation, and test sets
+            X_train, y_train, X_val, y_val, X_test, y_test = preprocessing.train_valid_test_split(X, y, device=device)
+
+
+        if 'model' in targets:
+            print("Running model target\n")
+            print("Training model...\n")
+
+            # Initialize model, loss, optimizer
+            model = CNN.TreNetCNN(device=device, **model_cfg['CNN']).to(device)
             loss_fn = nn.MSELoss()
             optimizer = optim.Adam(model.parameters(), lr=training_cfg['learning_rate'])
 
