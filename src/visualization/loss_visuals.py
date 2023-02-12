@@ -17,7 +17,8 @@ def visualize_loss(data, title, xlabel, ylabel, savefig=False, path=None, img_na
     Takes 1d or 2d data to visualize on line plot 
     """
     sns.set()
-    plt.plot(data)
+    for i in data:
+        plt.plot(i)
     plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)

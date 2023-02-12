@@ -84,7 +84,7 @@ def main(targets):
         optimizer = optim.Adam(model.parameters(), lr=training_cfg['learning_rate'])
 
         # Train model
-        training_loss = train_models.train_loop(training_cfg['num_epochs'], [X_train_trend, X_train_points], \
+        train_loss, val_loss = train_models.train_loop(training_cfg['num_epochs'], [X_train_trend, X_train_points], \
                                                 y_train_trend.reshape(y_train_trend.shape[0], 2), model, loss_fn, optimizer,\
                                                 X_val=[X_val_trend, X_val_points], y_val=y_val_trend.reshape(y_val_trend.shape[0], 2), \
                                                 printout=True, record_loss=True)
@@ -99,7 +99,7 @@ def main(targets):
 
         # Visualize loss per epoch and save plot
         loss_visuals.create_dir(visual_cfg['path'])
-        loss_visuals.visualize_loss(training_loss, **visual_cfg)
+        loss_visuals.visualize_loss([train_loss, val_loss], **visual_cfg)
 
 
 if __name__ == '__main__':
