@@ -42,7 +42,7 @@ def main(targets):
             with open('config/data_params.json') as f:
                 data_cfg = json.load(f)
 
-        # Load data and apply linear approximation 
+        # Load data and apply linear approximation
         dl = DataLoader(**data_cfg['load'])
         la = LinearApproximation(data=dl.data, **data_cfg['linear_approximation'])
         data = la.process_data()
@@ -65,7 +65,8 @@ def main(targets):
         scaled_points = points_scaler.fit_transform(points)
 
         # Create train, validation, and test sets
-        (X_train_trend, y_train_trend, X_valid_trend, y_valid_trend, X_test_trend, y_test_trend), (X_train_points, X_valid_points, X_test_points) = preprocessing.preprocess_data(scaled_trends, scaled_points, device, feature_cfg)
+        (X_train_trend, y_train_trend, X_val_trend, y_val_trend, X_test_trend, y_test_trend), \
+        (X_train_points, X_val_points, X_test_points) = preprocessing.preprocess_data(scaled_trends, scaled_points, device, feature_cfg)
 
 
     if 'model' in targets:
@@ -83,7 +84,10 @@ def main(targets):
         optimizer = optim.Adam(model.parameters(), lr=training_cfg['learning_rate'])
 
         # Train model
-        training_loss = train_models.train_loop(training_cfg['num_epochs'], [X_train_trend, X_train_points], y_train_trend.reshape(y_train_trend.shape[0], 2), model, loss_fn, optimizer, printout=True, record_loss=True)
+        training_loss = train_models.train_loop(training_cfg['num_epochs'], [X_train_trend, X_train_points], \
+                                                y_train_trend.reshape(y_train_trend.shape[0], 2), model, loss_fn, optimizer,\
+                                                X_val=[X_val_trend, X_val_points], y_val=y_val_trend.reshape(y_val_trend.shape[0], 2), \
+                                                printout=True, record_loss=True)
 
 
     if 'visual' in targets:
