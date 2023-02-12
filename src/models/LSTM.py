@@ -9,14 +9,14 @@ class LSTM(nn.Module):
     def __init__(self, input_dim, hidden_dim, num_layers, output_dim, device=None):
         super(LSTM, self).__init__()
 
-        # Initialize hidden dimenision and layers
+        # Initialize hidden dimension and layers
         self.hidden_dim = hidden_dim
         self.num_layers = num_layers
         self.input_dim = input_dim
 
         # Initialize deep learning models
-        self.lstm = nn.LSTM(input_dim, hidden_dim, batch_first=True)
-        self.fc = nn.Linear(hidden_dim, output_dim)
+        self.lstm = nn.LSTM(input_dim, hidden_dim, batch_first=True).to(device)
+        self.fc = nn.Linear(hidden_dim, output_dim).to(device)
 
         self.device = device
 

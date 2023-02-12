@@ -24,7 +24,7 @@
         "output_dim": 1
     }, 
     "CNN": {
-        "num_data": 99,
+        "num_data": 50,
         "layers": 2, 
         "num_filters": [32, 32],
         "dropout": [0.1, 0.1], 
