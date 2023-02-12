@@ -1,4 +1,4 @@
 {
-    "dockerhub-id": "n3ng/fintech-lib:latest",
-    "build-script": "python run.py"
+    "GitHub Repository": "https://github.com/nathansng/fintech_library", 
+    "DockerHub Repository": "https://hub.docker.com/r/n3ng/fintech-lib"
 }
