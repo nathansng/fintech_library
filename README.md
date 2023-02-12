@@ -64,7 +64,7 @@ To run the code, run `python run.py [target]` to run the corresponding target. T
 - `visual`: Runs the loss plot visualization code which stores a line plot of the loss per epoch to a path 
   - Configure parameters in `./config/visual_params.json`
 
-You can also specify the model to run by specifying the model name in addition to any targets listed above. The available models and their description are listed below: 
+You can also specify the model to run by specifying the model name in addition to any targets listed above by using `python run.py [targets] [model]`. The default model used if no model is specified is TreNet. The available models and their description are listed below: 
 
 - `trenet`: Runs the TreNet model. Processes 1 dimensional time series data into a sequence of linear regressions encoded by the regressions slope and duration. Uses trend slope and duration data to predict future trends. 
 
