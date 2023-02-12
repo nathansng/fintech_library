@@ -1,9 +1,8 @@
 # FinDL - Financial Deep Learning Library
 
-## DSC 180A Quarter 1 Project 
+## DSC 180 Project
 
-The goal of this project is to create a deep learning and machine learning library that allows users to easily create and deploy machine learning models for finance related tasks. 
-This repo focuses on the initial implementations of time series forecasting model and will eventually be built upon in quarter 2 and combined with models made by the NLP group. 
+The goal of this project is to create a deep learning and machine learning library that allows users to easily create and deploy machine learning models for finance related tasks, such as future stock forecasting. This repo contains a data loader, data preprocessing functions, time series forecasting models, and loss visualization functions to provide an end-to-end machine learning and visualization pipeline. This project is made in parallel with the finance library's NLP group. 
 
 ### Downloading Data
 
@@ -17,7 +16,7 @@ The following models have been implemented in the current implementation of the 
 - LSTM
 - TreNet
 
-The Convolutional Neural Net work (CNN) takes raw data points as input, extracts and learns the local feature information, and outputs the predicted local feature. The tuneable parameters of CNN are as follows:
+The Convolutional Neural Network (CNN) takes raw data points as input, extracts and learns the local feature information, and outputs the predicted local feature. The tuneable parameters of CNN are as follows:
 
 - number of layers
 - convolutional layer size 
@@ -65,6 +64,12 @@ To run the code, run `python run.py [target]` to run the corresponding target. T
 - `visual`: Runs the loss plot visualization code which stores a line plot of the loss per epoch to a path 
   - Configure parameters in `./config/visual_params.json`
 
+You can also specify the model to run by specifying the model name in addition to any targets listed above by using `python run.py [targets] [model]`. The default model used if no model is specified is TreNet. The available models and their description are listed below: 
 
+- `trenet`: Runs the TreNet model. Processes 1 dimensional time series data into a sequence of linear regressions encoded by the regressions slope and duration. Uses trend slope and duration data to predict future trends. 
+
+- `lstm`: Runs an LSTM model. Trains on 1 dimensional time series data to predict future time series data. 
+
+- `cnn`: Runs the CNN stack from the TreNet model. Trains on 1 dimensional time series data to predict future time series data. 
 
 
