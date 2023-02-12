@@ -1,11 +1,13 @@
 {
-    "init": {
-        "max_error": 100, 
-        "min_segment_length": 10
-    },
     "load": {
         "path": "./test/testdata/testdata.csv",
-        "date_col": "Date",
-        "price_col": "Close"
+        "file_type": "csv", 
+        "index": "NYA", 
+        "date_col": "Date"
+    }, 
+    "linear_approximation": {
+        "max_error": 100,
+        "min_segment_length": 10,
+        "target_col": "Close"
     }
 }

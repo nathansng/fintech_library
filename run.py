@@ -7,7 +7,8 @@ from torch import nn
 from torch import optim
 
 # Import files
-from src.data import load_data
+from src.data.data_loader import DataLoader
+from src.data.linear_approximation import LinearApproximation
 from src.features import preprocessing, Scaler
 from src.models import TreNet, CNN, LSTM, train_models, setup
 from src.visualization import loss_visuals
@@ -41,10 +42,10 @@ def main(targets):
             with open('config/data_params.json') as f:
                 data_cfg = json.load(f)
 
-        # Load in data and separate into train, test sets
-        processing = load_data.ProcessedData(**data_cfg['init'])
-        processing.load_raw_data(**data_cfg['load'])
-        data = processing.process_data()
+        # Load data and apply linear approximation 
+        dl = DataLoader(**data_cfg['load'])
+        la = LinearApproximation(data=dl.data, **data_cfg['linear_approximation'])
+        data = la.process_data()
 
 
     if 'features' in targets:
