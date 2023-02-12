@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+import datetime
 
 class DataLoader:
     def __init__(self, path, file_type=None, index=None, index_col=None, date_col=None, date_format=None): 
