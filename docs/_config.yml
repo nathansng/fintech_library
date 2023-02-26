@@ -1,0 +1,30 @@
+remote_theme              : "mmistakes/minimal-mistakes@4.24.0"
+minimal_mistakes_skin     : "default"
+name                      : "Nathan Ng, Gao Mo, Richard Tang"
+
+locale                    : "en-US"
+title                     : "FinDL Library"
+subtitle                  : "Deep Learning Library for Finance Applications"
+layout                    : single
+classes                   : wide
+
+author:
+  name                    : "Nathan Ng, Gao Mo, Richard Tang"
+  bio                     : "DSC 180 Capstone Project Group"
+  location                : "University of California, San Diego"
+
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      share: true
+      related: true
+
+
+plugins:
+  - jekyll-include-cache
