@@ -22,7 +22,7 @@ FinDL provides an end-to-end machine learning pipeline for time series data, wit
 The library includes a data loader and data preprocessing functions, as well as time series forecasting models and loss visualization functions, to provide the tools necessary to build an end-to-end machine learning pipeline. The library has been developed in parallel with FinDL's NLP group, which focuses on building the tools for NLP applications in the finance industry.
 
 <div style="text-align:center;">
-        <img src="{{ site.url }}{{ site.baseurl }}/assets/images/FinDL_stack.png" alt="FinDL Module Stack">
+        <img src="./assets/images/FinDL_Stack.png" alt="FinDL Module Stack">
     <p style="font-size: 15px">Stack visual of FinDL modules</p>
 </div>
 
@@ -37,7 +37,7 @@ The processed data is then ready to be used by our prediction model, which inclu
 Finally, users can utilize our visualization functions to produce compelling visualizations using the training and validation loss data. Our library provides an end-to-end solution that enables users to process, analyze, and visualize their time series data in a deep learning pipeline.
 
 <div style="text-align:center;">
-    <img style="width: 80%; height: auto;" src="{{ site.url }}{{ site.baseurl }}/assets/images/FinDL_workflow.png" alt="FinDL Workflow">
+    <img style="width: 80%; height: auto;" src="./assets/images/FinDL_Workflow.png" alt="FinDL Workflow">
     <p style="font-size: 15px">FinDL workflow to create and train TreNet</p>
 </div>
 
