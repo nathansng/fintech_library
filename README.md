@@ -4,6 +4,11 @@
 
 The goal of this project is to create a deep learning and machine learning library that allows users to easily create and deploy machine learning models for finance related tasks, such as future stock forecasting. This repo contains a data loader, data preprocessing functions, time series forecasting models, and loss visualization functions to provide an end-to-end machine learning and visualization pipeline. This project is made in parallel with the finance library's NLP group. 
 
+#### Project Website
+Link to FinDL's project website: [https://nathansng.github.io/fintech_library](https://nathansng.github.io/fintech_library/)
+
+The project website code can be found in the finDL_website branch of this repository.
+
 ### Downloading Data
 
 Our data is downloaded from Kaggle.com. The dataset that we used for our experiment is the Stock Exchange Data created by Cody in 2018. The dataset is available at: https://www.kaggle.com/datasets/mattiuzc/stock-exchange-data. The dataset we used from this Kaggle dataset is "indexProcessed.csv". Save the csv file in the path `./data/raw/`. 
