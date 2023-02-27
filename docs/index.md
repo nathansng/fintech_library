@@ -13,8 +13,6 @@ author_profile: true
 
 # FinDL: Deep Learning Library for Finance Applications
 
----
-
 ## Overview
 
 Time series data is ubiquitous in today's world, particularly in the finance industry, where it is used for numerous tasks, such as forecasting. Developing effective deep learning models for time series forecasting requries extensive machine learning knowledge, which may be a barrier for financial specialists who lack this expertise. To address this challenge, we have developed FinDL, a library designed for both financial specialists and machine learning engineers.

@@ -9,9 +9,28 @@ layout                    : single
 classes                   : wide
 
 author:
-  name                    : "Nathan Ng, Gao Mo, Richard Tang"
-  bio                     : "DSC 180 Capstone Project Group"
-  location                : "University of California, San Diego"
+  name: "Nathan Ng, Gao Mo, Richard Tang"
+  bio: "DSC 180 Capstone Project Group"
+  location: "San Diego, California"
+  links:
+    - label: "University of California, San Diego"
+      icon: "fas fa-university"
+      url: "https://ucsd.edu"
+
+footer:
+  links:
+    - label: "Nathan's GitHub"
+      icon: "fab fa-github"
+      url: "https://github.com/nathansng"
+    - label: "Gao's GitHub"
+      icon: "fab fa-github"
+      url: "https://github.com/DavidMo113"
+    - label: "Richard's GitHub"
+      icon: "fab fa-github"
+      url: "https://github.com/rrichardtang"
+
+atom_feed:
+  hide: true
 
 defaults:
   # _posts
