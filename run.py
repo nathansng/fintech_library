@@ -84,9 +84,6 @@ def main(targets):
             scaled_trends, scaled_points = data_scaler.fit_transform([trends, points])
 
             # Create train, validation, and test sets
-#             (X_train_trend, y_train_trend, X_val_trend, y_val_trend, X_test_trend, y_test_trend), \
-#             (X_train_points, X_val_points, X_test_points) = preprocessing.preprocess_data(scaled_trends, scaled_points, device, feature_cfg)
-
             split_data = preprocessing.preprocess_trends(scaled_trends, scaled_points, device, feature_cfg)
 
 
