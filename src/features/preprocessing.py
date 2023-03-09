@@ -3,7 +3,7 @@ import ast
 import torch
 
 
-def preprocess_data(trends, points, device, feature_cfg):
+def preprocess_trends(trends, points, device, feature_cfg):
     """
     Takes in trends and points and returns training, validation, and test sets
     from samples from the data
@@ -11,11 +11,23 @@ def preprocess_data(trends, points, device, feature_cfg):
     trend_X, trend_y = extract_data(trends, **feature_cfg)
     points_X = points[feature_cfg['num_input']+feature_cfg['num_output']:]
 
-    X_train_trend, y_train_trend, X_valid_trend, y_valid_trend, X_test_trend, y_test_trend = train_valid_test_split(trend_X, trend_y, device=device)
+#     X_train_trend, y_train_trend, X_valid_trend, y_valid_trend, X_test_trend, y_test_trend = train_valid_test_split(trend_X, trend_y, device=device)
 
-    X_train_points, X_valid_points, X_test_points = train_valid_test_split(points_X, device=device)
+#     X_train_points, X_valid_points, X_test_points = train_valid_test_split(points_X, device=device)
 
-    return (X_train_trend, y_train_trend, X_valid_trend, y_valid_trend, X_test_trend, y_test_trend), (X_train_points, X_valid_points, X_test_points)
+#     return (X_train_trend, y_train_trend, X_valid_trend, y_valid_trend, X_test_trend, y_test_trend), (X_train_points, X_valid_points, X_test_points)
+
+    trend_data = train_valid_test_split(trend_X, trend_y, device=device)
+    point_data = train_valid_test_split(points_X, device=device)
+    
+    # Reshape trend outcomes for models
+    y_labels = [i for i in trend_data.data_labels if i.startswith("y_")]
+    for label in y_labels: 
+        trend_data.data[label][0] = trend_data.data[label][0].reshape(trend_data.data[label][0].shape[0], 2)
+    
+    trend_data.merge(point_data)
+    
+    return trend_data
 
 
 def pad_data(data):
@@ -80,16 +92,44 @@ def train_valid_test_split(X, y=None, props=None, device=None):
 
     train_size = int(X.shape[0] * props[0])
     valid_size = int(X.shape[0] * props[1])
-
-    X_train = X[:train_size].to(device)
-    X_valid = X[train_size: (train_size + valid_size)].to(device)
-    X_test = X[(train_size + valid_size):].to(device)
+    
+    data = SplitData()
+    
+    data.add("X_train", X[:train_size].to(device))
+    data.add("X_valid", X[train_size: (train_size + valid_size)].to(device))
+    data.add("X_test", X[(train_size + valid_size):].to(device))
 
     if y != None:
-        y_train = y[:train_size].to(device)
-        y_valid = y[train_size: (train_size + valid_size)].to(device)
-        y_test = y[(train_size + valid_size):].to(device)
+        data.add("y_train", y[:train_size].to(device))
+        data.add("y_valid", y[train_size: (train_size + valid_size)].to(device))
+        data.add("y_test", y[(train_size + valid_size):].to(device))
+        
+    return data
 
-        return X_train, y_train, X_valid, y_valid, X_test, y_test
 
-    return X_train, X_valid, X_test
+
+"""
+Stores train, valid, and test data for easy access
+"""
+class SplitData:
+    def __init__(self, data_labels = ["X_train", "y_train", "X_valid", "y_valid", "X_test", "y_test"]):
+        self.data_labels = data_labels
+        self.data = {i: [] for i in self.data_labels}
+        
+    def add(self, label, data):
+        if type(data) == list: 
+            for i in data: 
+                self.data[label].append(i)
+        else: 
+            self.data[label].append(data)
+            
+    def get(self, label):
+        if len(self.data[label]) > 1:
+            return self.data[label]
+        return self.data[label][0]
+   
+    def merge(self, data):
+        for label in data.data: 
+            if label in self.data_labels:
+                for i in data.data[label]:
+                    self.data[label].append(i)

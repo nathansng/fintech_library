@@ -84,8 +84,10 @@ def main(targets):
             scaled_trends, scaled_points = data_scaler.fit_transform([trends, points])
 
             # Create train, validation, and test sets
-            (X_train_trend, y_train_trend, X_val_trend, y_val_trend, X_test_trend, y_test_trend), \
-            (X_train_points, X_val_points, X_test_points) = preprocessing.preprocess_data(scaled_trends, scaled_points, device, feature_cfg)
+#             (X_train_trend, y_train_trend, X_val_trend, y_val_trend, X_test_trend, y_test_trend), \
+#             (X_train_points, X_val_points, X_test_points) = preprocessing.preprocess_data(scaled_trends, scaled_points, device, feature_cfg)
+
+            split_data = preprocessing.preprocess_trends(scaled_trends, scaled_points, device, feature_cfg)
 
 
         if 'model' in targets:
@@ -98,10 +100,7 @@ def main(targets):
             optimizer = optim.Adam(model.parameters(), lr=training_cfg['learning_rate'])
 
             # Train model
-            train_loss, val_loss = train_models.train_loop(training_cfg['num_epochs'], [X_train_trend, X_train_points], \
-                                                    y_train_trend.reshape(y_train_trend.shape[0], 2), model, loss_fn, optimizer,\
-                                                    X_val=[X_val_trend, X_val_points], y_val=y_val_trend.reshape(y_val_trend.shape[0], 2), \
-                                                    printout=True, record_loss=True)
+            train_loss, val_loss = train_models.train_loop(training_cfg['num_epochs'], split_data.get("X_train"), split_data.get("y_train"), model, loss_fn, optimizer, X_val=split_data.get("X_valid"), y_val=split_data.get("y_valid"), printout=True, record_loss=True)
             
     # Run LSTM model
     if 'lstm' in targets: 
@@ -126,7 +125,7 @@ def main(targets):
             X, y = preprocessing.extract_data(data, **feature_cfg)
             
             # Create train, validation, and test sets
-            X_train, y_train, X_val, y_val, X_test, y_test = preprocessing.train_valid_test_split(X, y, device=device)
+            split_data = preprocessing.train_valid_test_split(X, y, device=device)
 
 
         if 'model' in targets:
@@ -139,7 +138,7 @@ def main(targets):
             optimizer = optim.Adam(model.parameters(), lr=training_cfg['learning_rate'])
 
             # Train model
-            train_loss, val_loss = train_models.train_loop(training_cfg['num_epochs'], X_train, y_train, model, loss_fn, optimizer, X_val=X_val, y_val=y_val, printout=True, record_loss=True)
+            train_loss, val_loss = train_models.train_loop(training_cfg['num_epochs'], split_data.get("X_train"), split_data.get("y_train"), model, loss_fn, optimizer, X_val=split_data.get("X_valid"), y_val=split_data.get("y_valid"), printout=True, record_loss=True)
             
     # Run CNN model
     if 'cnn' in targets: 
@@ -164,7 +163,7 @@ def main(targets):
             X, y = preprocessing.extract_data(data, **feature_cfg)
             
             # Create train, validation, and test sets
-            X_train, y_train, X_val, y_val, X_test, y_test = preprocessing.train_valid_test_split(X, y, device=device)
+            split_data = preprocessing.train_valid_test_split(X, y, device=device)
 
 
         if 'model' in targets:
@@ -177,7 +176,7 @@ def main(targets):
             optimizer = optim.Adam(model.parameters(), lr=training_cfg['learning_rate'])
 
             # Train model
-            train_loss, val_loss = train_models.train_loop(training_cfg['num_epochs'], X_train, y_train, model, loss_fn, optimizer, X_val=X_val, y_val=y_val, printout=True, record_loss=True)
+            train_loss, val_loss = train_models.train_loop(training_cfg['num_epochs'], split_data.get("X_train"), split_data.get("y_train"), model, loss_fn, optimizer, X_val=split_data.get("X_valid"), y_val=split_data.get("y_valid"), printout=True, record_loss=True)
 
 
     # Visualize loss of training model
