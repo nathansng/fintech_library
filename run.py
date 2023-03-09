@@ -97,7 +97,9 @@ def main(targets):
             optimizer = optim.Adam(model.parameters(), lr=training_cfg['learning_rate'])
 
             # Train model
-            train_loss, val_loss = train_models.train_loop(training_cfg['num_epochs'], split_data.get("X_train"), split_data.get("y_train"), model, loss_fn, optimizer, X_val=split_data.get("X_valid"), y_val=split_data.get("y_valid"), printout=True, record_loss=True)
+            trainer = train_models.TrainingExecutor(model=model, optim=optimizer, loss=loss_fn)
+            trainer.train(split_data.get("X_train"), split_data.get("y_train"), X_val=split_data.get("X_valid"), y_val=split_data.get("y_valid"))
+            train_loss, val_loss = trainer.losses["train"], trainer.losses["valid"]
             
     # Run LSTM model
     if 'lstm' in targets: 
@@ -135,7 +137,9 @@ def main(targets):
             optimizer = optim.Adam(model.parameters(), lr=training_cfg['learning_rate'])
 
             # Train model
-            train_loss, val_loss = train_models.train_loop(training_cfg['num_epochs'], split_data.get("X_train"), split_data.get("y_train"), model, loss_fn, optimizer, X_val=split_data.get("X_valid"), y_val=split_data.get("y_valid"), printout=True, record_loss=True)
+            trainer = train_models.TrainingExecutor(model=model, optim=optimizer, loss=loss_fn)
+            trainer.train(split_data.get("X_train"), split_data.get("y_train"), X_val=split_data.get("X_valid"), y_val=split_data.get("y_valid"))
+            train_loss, val_loss = trainer.losses["train"], trainer.losses["valid"]
             
     # Run CNN model
     if 'cnn' in targets: 
@@ -173,7 +177,9 @@ def main(targets):
             optimizer = optim.Adam(model.parameters(), lr=training_cfg['learning_rate'])
 
             # Train model
-            train_loss, val_loss = train_models.train_loop(training_cfg['num_epochs'], split_data.get("X_train"), split_data.get("y_train"), model, loss_fn, optimizer, X_val=split_data.get("X_valid"), y_val=split_data.get("y_valid"), printout=True, record_loss=True)
+            trainer = train_models.TrainingExecutor(model=model, optim=optimizer, loss=loss_fn)
+            trainer.train(split_data.get("X_train"), split_data.get("y_train"), X_val=split_data.get("X_valid"), y_val=split_data.get("y_valid"))
+            train_loss, val_loss = trainer.losses["train"], trainer.losses["valid"]
 
 
     # Visualize loss of training model
