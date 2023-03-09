@@ -80,10 +80,8 @@ def main(targets):
             trends, points = preprocessing.convert_data_points(data)
 
             # Scale data
-            trend_scaler = Scaler.Scaler()
-            points_scaler = Scaler.Scaler()
-            scaled_trends = trend_scaler.fit_transform(trends)
-            scaled_points = points_scaler.fit_transform(points)
+            data_scaler = Scaler.MultiScaler(2)
+            scaled_trends, scaled_points = data_scaler.fit_transform([trends, points])
 
             # Create train, validation, and test sets
             (X_train_trend, y_train_trend, X_val_trend, y_val_trend, X_test_trend, y_test_trend), \

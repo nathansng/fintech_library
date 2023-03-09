@@ -5,6 +5,32 @@ from sklearn.preprocessing import MinMaxScaler
 
 
 """
+Scales multiple sources of data using Scaler class
+"""
+class MultiScaler(): 
+    def __init__(self, num_sources): 
+        self.Scalers = [Scaler() for i in range(num_sources)]
+       
+    def fit_transform(self, data):
+        scale_data = []
+        for i in range(len(data)): 
+            if data[i] != None: 
+                scale_data.append(self.Scalers[i].fit_transform(data[i]))
+            else: 
+                scale_data.append(None)
+        return scale_data
+    
+    def inverse_transform(self, data): 
+        unscale_data = []
+        for i in range(len(data)): 
+            if data[i] != None: 
+                unscale_data.append(self.Scalers[i].inverse_transform(data[i]))
+            else:
+                unscale_data.append(None)
+        return unscale_data
+
+
+"""
 Scales data using Sklearn's MinMaxScaler
 Generalized to accept tensors
 """
