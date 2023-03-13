@@ -13,6 +13,7 @@ class LSTM(nn.Module):
         hidden_dim (int): Size of hidden layer
         num_layers (int): Number of layers in the LSTM model
         output_dim (int): Size of output layer
+        device (Torch device): Device to store model on
 
     Returns:
         None

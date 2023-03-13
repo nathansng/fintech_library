@@ -9,19 +9,44 @@ import torch.optim as optim
 from sklearn.preprocessing import MinMaxScaler
 
 class GRU(nn.Module):
-    def __init__(self, input_dim, hidden_dim, output_dim, num_layers, device=None):
+    """Initializes a GRU model for time series forecast prediction.
+
+    Args:
+        input_dim (int): Number of input dimensions
+        hidden_dim (int): Size of hidden layer
+        num_layers (int): Number of layers in the LSTM model
+        output_dim (int): Size of output layer
+        device (Torch device): Device to store model on
+
+    Returns:
+        None
+    """
+
+    def __init__(self, input_dim, hidden_dim, num_layers, output_dim,  device=None):
         super(GRU, self).__init__()
-        
+
         # Initialize hidden dimenision and layers
         self.hidden_dim = hidden_dim
         self.num_layers = num_layers
-        self.input_dim = inpu_dim
-        
+        self.input_dim = input_dim
+        self.output_dim = output_dim
+
+        self.device = device
+
         # Initialize deep learning models
         self.gru = nn.GRU(input_dim, hidden_dim, batch_first = True).to(device)
-        self.fc = nn.Linear(hidden_size, output_size)
-        
+        self.fc = nn.Linear(self.hidden_dim, self.output_dim)
+
     def forward(self, input):
+        """Perform one forward pass of the GRU model
+
+        Args:
+            data (tensor): Time series data
+
+        Returns:
+            Tensor containing outputs of all input data
+        """
+
         hidden = torch.zeros(self.num_layers, x.size(0), self.hidden_dim)
 
         # Reshape data if needed
@@ -32,4 +57,3 @@ class GRU(nn.Module):
         output = self.fc(output[:, -1, :])
         return output
 
-        
