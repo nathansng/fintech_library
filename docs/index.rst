@@ -23,6 +23,33 @@ Getting Started:
 API Documentation:
 -------------------
 
+:doc:`code/data`
+    :ref:`data-loader`
+
+:doc:`code/features`
+    :ref:`preprocessing`
+
+    :ref:`linear-approximation`
+
+    :ref:`scaler`
+
+:doc:`code/models`
+    :ref:`trenet`
+
+    :ref:`lstm`
+
+    :ref:`gru`
+
+    :ref:`cnn`
+
+:doc:`code/model_training`
+    :ref:`setup`
+
+    :ref:`training_executor`
+
+:doc:`code/visualization`
+    :ref:`loss-visuals`
+
 
 .. toctree::
    :maxdepth: 1
@@ -41,4 +68,5 @@ API Documentation:
    code/data
    code/features
    code/models
+   code/model_training
    code/visualization
