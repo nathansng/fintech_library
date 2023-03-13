@@ -8,6 +8,19 @@ from .CNN import TreNetCNN
 
 
 class TreNet(nn.Module):
+    """Initializes a TreNet model for time series trend duration and slope prediction.
+
+    Args:
+        LSTM_params (dict): Dictionary containing parameters for LSTM model, see :class:`~models.LSTM.LSTM` for LSTM parameters
+        CNN_params (dict): Dictionary containing parameters for CNN model, see :class:`~models.CNN.CNN` for CNN parameters
+        feature_fusion (int): Size of feature fusion layer
+        output_dim (int): Size of model output
+        device (Torch device): Device to store model on
+
+    Returns:
+        None
+    """
+
     def __init__(self, LSTM_params, CNN_params, feature_fusion, output_dim, device=None):
         super(TreNet, self).__init__()
 
@@ -27,6 +40,15 @@ class TreNet(nn.Module):
         self.device = device
 
     def forward(self, data):
+        """Perform one forward pass of the TreNet model
+
+        Args:
+            data (tensor): Time series trend data containing trend duration, slopes, and time series data to pass through TreNet
+
+        Returns:
+            Tensor containing outputs of all input data
+        """
+
         trends, data = data
 
         # Run trends through LSTM

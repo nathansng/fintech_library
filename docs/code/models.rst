@@ -5,26 +5,27 @@ Model Modules
 
 TreNet
 ---------------------
+.. autoclass:: models.TreNet.TreNet
+    :members:
 
-[ADD DOCUMENTATION HERE]
 
 .. _LSTM:
 
 LSTM
 ---------------------
-
-[ADD DOCUMENTATION HERE]
+.. autoclass:: models.LSTM.LSTM
+    :members:
 
 .. _GRU:
 
 GRU
 ---------------------
-
-[ADD DOCUMENTATION HERE]
+.. autoclass:: models.GRU.GRU
+    :members:
 
 .. _CNN:
 
 CNN
 ---------------------
-
-[ADD DOCUMENTATION HERE]
+.. autoclass:: models.CNN.TreNetCNN
+    :members:
