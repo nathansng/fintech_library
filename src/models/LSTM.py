@@ -6,6 +6,18 @@ import torch.optim as optim
 
 
 class LSTM(nn.Module):
+    """Initializes an LSTM model for time series forecast prediction.
+
+    Args:
+        input_dim (int): Number of input dimensions
+        hidden_dim (int): Size of hidden layer
+        num_layers (int): Number of layers in the LSTM model
+        output_dim (int): Size of output layer
+
+    Returns:
+        None
+    """
+
     def __init__(self, input_dim, hidden_dim, num_layers, output_dim, device=None):
         super(LSTM, self).__init__()
 
@@ -21,6 +33,15 @@ class LSTM(nn.Module):
         self.device = device
 
     def forward(self, x):
+        """Perform one forward pass of the LSTM model
+
+        Args:
+            data (tensor): Time series data
+
+        Returns:
+            Tensor containing outputs of all input data
+        """
+
         h0 = torch.zeros(self.num_layers, x.size(0), self.hidden_dim).requires_grad_().to(self.device)
         c0 = torch.zeros(self.num_layers, x.size(0), self.hidden_dim).requires_grad_().to(self.device)
 
