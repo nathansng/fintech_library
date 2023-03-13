@@ -4,6 +4,8 @@ import datetime
 
 class DataLoader:
     """
+    Initializes a DataLoader object that loads in data to a dataframe and performs basic filtering and formatting.
+
     Args:
         path (string): Path to the data file
         file_type (string): File type of data file
@@ -15,6 +17,7 @@ class DataLoader:
     Returns:
         None
     """
+
     def __init__(self, path, file_type=None, index=None, index_col=None, date_col=None, date_format=None):
         self.path = path
         self.data = None
@@ -39,6 +42,7 @@ class DataLoader:
 
     def load_data(self, file_type="csv"):
         """ Loads data into dataframe object based on file type
+
         Args:
             file_type (string): File type of data file
 
@@ -51,7 +55,8 @@ class DataLoader:
             self.data = pd.read_json(self.path)
 
     def filter_index(self, index, index_col="Index"):
-        """ Filters for only certain indices of data
+        """ Filters for specific indices in data, useful for filtering for a specific company or group
+
         Args:
             index (string): Index to filter dataset by (ex: "NYA")
 
@@ -62,6 +67,7 @@ class DataLoader:
             self.data = self.data[self.data[index_col] == index]
             return True
         return False
+
 
     def date_index(self, date_col, date_format="%Y-%m-%d"):
         """ Turns a string date column into a date object and calculates an index based on date
