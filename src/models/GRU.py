@@ -37,11 +37,12 @@ class GRU(nn.Module):
         self.gru = nn.GRU(input_dim, hidden_dim, batch_first = True).to(device)
         self.fc = nn.Linear(self.hidden_dim, self.output_dim)
 
-    def forward(self, input):
+
+    def forward(self, x):
         """Perform one forward pass of the GRU model
 
         Args:
-            data (tensor): Time series data
+            x (tensor): Time series data
 
         Returns:
             Tensor containing outputs of all input data

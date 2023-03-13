@@ -37,7 +37,7 @@ class LSTM(nn.Module):
         """Perform one forward pass of the LSTM model
 
         Args:
-            data (tensor): Time series data
+            x (tensor): Time series data
 
         Returns:
             Tensor containing outputs of all input data

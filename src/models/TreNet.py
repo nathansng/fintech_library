@@ -39,17 +39,17 @@ class TreNet(nn.Module):
 
         self.device = device
 
-    def forward(self, data):
+    def forward(self, x):
         """Perform one forward pass of the TreNet model
 
         Args:
-            data (tensor): Time series trend data containing trend duration, slopes, and time series data to pass through TreNet
+            x (list[tensor]): Time series trend data containing trend duration, slopes, and time series data to pass through TreNet
 
         Returns:
             Tensor containing outputs of all input data
         """
 
-        trends, data = data
+        trends, data = x
 
         # Run trends through LSTM
         lstm_out = self.lstm(trends)
