@@ -4,6 +4,18 @@ import datetime
 
 class LinearApproximation:
     def __init__(self, max_error, min_segment_length, data=None, target_col=None, date_index=None):
+        """Initialize object
+
+        Args:
+            max_error (float): Maximum error allowed in each segment during linear approximation
+            min_segment_length (int): Minimum number of data points in each segment during linear approximation
+            data (Pandas DataFrame): Dataset to process
+            target_col (string or int): Name or index of target column
+            date_index (string or int): Name or index of date column
+
+        Returns:
+            None
+        """
         self.d = None
         self.transformed_d = None
         self.x = None
@@ -13,23 +25,26 @@ class LinearApproximation:
 
         self.max_error = max_error
         self.min_segment_length = min_segment_length
-        
+
         if data is not None and target_col is not None:
             # Add data if provided info
             if date_index is not None:
                 self.add_data(data, target_col, date_index)
             else:
                 self.add_data(data, target_col)
-    
+
     def add_data(self, data, target_col, date_index="date_index"):
+        """Load in data to process with a date index column and target prediction column
+
+        Args:
+            data (Pandas DataFrame): Dataframe to process
+            target_col (string or int): Name or index of target column
+            date_index (string or int): Name or index of date column
+
+        Returns:
+            None
         """
-        Load in data to process with a date index column and target prediction column 
-        :param data: Dataframe to use 
-        :param target_col: Colum name containing target data 
-        :param date_index: Column name containing date index values 
-        :return: None
-        """
-        self.d = data 
+        self.d = data
         self.x = np.array(self.d[date_index])
         self.y = np.array(self.d[target_col])
         self.len_data = self.d.shape[0]
@@ -37,11 +52,11 @@ class LinearApproximation:
 
 
     def process_data(self):
-        """
-        Transform original data to pandas dataframe containing information about trends
-        trends[i] = [trend_duration[i], trend_slope[i], original data points that make up trends[i]]
+        """Transform original data to Pandas DataFrame containing information about trends. Each row in the DataFrame
+        (trends[i]) corresponds to [trend_duration[i], trend_slope[i], original data points that make up trends[i]]
 
-        :return: Dataframe of processed data
+        Returns:
+            DataFrame of processed data
         """
 
         # set buffer and lower and upper bounds
@@ -74,12 +89,14 @@ class LinearApproximation:
 
 
     def best_line(self, i, upper_bound):
-        """
-        Calculates end index of current window
+        """ Calculates end index of current window in linear approximation algorithm
 
-        :param i: starting index of current window
-        :param upper_bound: maximum size of window
-        :return: ending index of current window
+        Args:
+            i (int): Starting index of current window
+            upper_bound (int): Maximum size of window
+
+        Returns:
+            int: Ending index of current window
         """
         error = 0
         j = i
@@ -92,14 +109,16 @@ class LinearApproximation:
 
 
     def bottom_up(self, i, j):
-        """
-        Performs bottom up algorithm on data[i:j] as described in: http://www.cs.ucr.edu/~eamonn/icdm-01.pdf
+        """ Performs bottom up algorithm on data[i:j] as described in: http://www.cs.ucr.edu/~eamonn/icdm-01.pdf
         and returns list of segments represented by indices
 
-        :param i: starting index of current window
-        :param j: ending index of current window
-        :return: segments (2-D list)
-                 segments[i] = [starting index of segments[i], ending index of segments[i]]
+        Args:
+            i (int): Starting index of current window
+            j (int): Ending index of current window
+
+        Returns:
+            list[list]: segments (2-D list)
+                        segments[i] = [starting index of segments[i], ending index of segments[i]]
         """
         # print(f"Performing bottom_up with i={i}, j={j}, max_error={self.max_error}")
         # segment_increase = self.min_segment_length//4
@@ -136,23 +155,25 @@ class LinearApproximation:
             elif min_seg_length < self.min_segment_length:
                 if min_seg_idx == len(segments) - 1:
                     min_seg_idx -= 1
-                    
+
                 segments[min_seg_idx] = [segments[min_seg_idx][0], min(self.max_idx, segments[min_seg_idx+1][1])]
                 segments.pop(min_seg_idx+1)
-                      
-            else: 
+
+            else:
                 fully_merged = True
 
         return segments
 
 
     def __calculate_error(self, x, y):
-        """
-        Calculates least squared error of linear approximation of x, y
+        """Calculates least squared error of linear approximation of x, y
 
-        :param x: inputs to linear approximation
-        :param y: targets of linear approximation
-        :return: error
+        Args:
+            x (list[ints]): Guesses for linear approximation
+            y (list[ints]): Targets for linear approximation
+
+        Returns:
+            int: Error value
         """
         A = np.vstack([x, np.ones(len(x))]).T
         try:
@@ -164,12 +185,14 @@ class LinearApproximation:
 
 
     def __calculate_slope(self, x, y):
-        """
-        Calculates slope of linear approximation of x, y
+        """ Calculates slope of linear approximation of x, y
 
-        :param x: inputs to linear approximation
-        :param y: targets of linear approximation
-        :return: slope
+        Args:
+            x (list[ints]): Guesses for linear approximation
+            y (list[ints]): Targets for linear approximation
+
+        Returns:
+            int: Slope value
         """
         A = np.vstack([x, np.ones(len(x))]).T
         try:
@@ -181,12 +204,14 @@ class LinearApproximation:
 
 
     def __calculate_intercept(self, x, y):
-        """
-        Calculates intercept of linear approximation of x, y
+        """ Calculates intercept of linear approximation of x, y
 
-        :param x: inputs to linear approximation
-        :param y: targets of linear approximation
-        :return: intercept
+        Args:
+            x (list[ints]): Guesses for linear approximation
+            y (list[ints]): Targets for linear approximation
+
+        Returns:
+            int: Intercept value
         """
         A = np.vstack([x, np.ones(len(x))]).T
         try:
@@ -198,10 +223,13 @@ class LinearApproximation:
 
 
     def save_to_csv(self, file_path):
-        """
-        Saves transformed data to csv file for use
+        """ Saves transformed data to csv file for use
 
-        :return: boolean
+        Args:
+            file_path (string): File path to save csv to
+
+        Returns:
+            boolean: If csv file was saved
         """
         try:
             self.transformed_d.to_csv(file_path)
