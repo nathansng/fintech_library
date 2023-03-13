@@ -16,7 +16,10 @@ General Preprocessing
 Linear Approximation
 ---------------------
 
-[ADD DOCUMENTATION HERE]
+LinearApproximation
+~~~~~~~~~~~~~~~~~~~~
+.. autoclass:: features.linear_approximation.LinearApproximation
+    :members:
 
 
 

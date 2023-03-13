@@ -3,8 +3,7 @@ import numpy as np
 import datetime
 
 class LinearApproximation:
-    def __init__(self, max_error, min_segment_length, data=None, target_col=None, date_index=None):
-        """Initialize object
+    """Create a LinearApproximation object that extracts trend sequence durations and slope from raw time series data
 
         Args:
             max_error (float): Maximum error allowed in each segment during linear approximation
@@ -15,7 +14,9 @@ class LinearApproximation:
 
         Returns:
             None
-        """
+    """
+
+    def __init__(self, max_error, min_segment_length, data=None, target_col=None, date_index=None):
         self.d = None
         self.transformed_d = None
         self.x = None
