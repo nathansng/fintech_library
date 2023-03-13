@@ -1,8 +1,8 @@
 {
-    "title": "TreNet Training Loss", 
-    "xlabel": "Epochs", 
-    "ylabel": "RMSE", 
-    "savefig": true, 
-    "path": "./data/images", 
+    "title": "TreNet Training Loss",
+    "xlabel": "Epochs",
+    "ylabel": "RMSE",
+    "savefig": true,
+    "path": "./data/images",
     "img_name": "loss.png"
 }
