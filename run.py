@@ -8,8 +8,8 @@ from torch import optim
 
 # Import files
 from src.data.data_loader import DataLoader
-from src.data.linear_approximation import LinearApproximation
-from src.features import preprocessing, Scaler
+from src.features.linear_approximation import LinearApproximation
+from src.features import preprocessing, scaler
 from src.models import TreNet, CNN, LSTM, train_models, setup
 from src.visualization import loss_visuals
 
@@ -80,7 +80,7 @@ def main(targets):
             trends, points = preprocessing.convert_data_points(data)
 
             # Scale data
-            data_scaler = Scaler.MultiScaler(2)
+            data_scaler = scaler.MultiScaler(2)
             scaled_trends, scaled_points = data_scaler.fit_transform([trends, points])
 
             # Create train, validation, and test sets
@@ -117,8 +117,8 @@ def main(targets):
             print("Preprocessing data...\n")
             
             # Normalize data
-            scaler = Scaler.Scaler()
-            data = scaler.fit_transform(data).to(device)
+            data_scaler = scaler.Scaler()
+            data = data_scaler.fit_transform(data).to(device)
             
             # Create batches to train on
             X, y = preprocessing.extract_data(data, **feature_cfg)
@@ -157,8 +157,8 @@ def main(targets):
             print("Preprocessing data...\n")
             
             # Normalize data
-            scaler = Scaler.Scaler()
-            data = scaler.fit_transform(data).to(device)
+            data_scaler = scaler.Scaler()
+            data = data_scaler.fit_transform(data).to(device)
             
             # Create batches to train on
             X, y = preprocessing.extract_data(data, **feature_cfg)
