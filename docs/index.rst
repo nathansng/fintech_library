@@ -6,11 +6,39 @@
 Welcome to FinDL's documentation!
 =================================
 
+FinDL is a deep learning and machine learning library that allows users to easily create and deploy machine learning models for finance related tasks. The library includes components to build an end-to-end machine learning pipeline, such as a data loader, data preprocessing functions, time series forecasting models, training executor, and loss visualization functions.
+
+
+Getting Started:
+-----------------
+
+:doc:`code/overview`
+    Overview of the FinDL Library and project.
+
+:doc:`code/tutorials`
+    Example of creating an end-to-end machine learning pipeline with FinDL.
+
+
+
+API Documentation:
+-------------------
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Getting Started:
+   :hidden:
+
+   code/overview
+   code/tutorials
+
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: API Documentation:
+   :hidden:
 
-   code/getting_started
-   code/tutorials
-   code/api
-
+   code/data
+   code/features
+   code/models
+   code/visualization
