@@ -6,6 +6,22 @@ import torch.optim as optim
 
 
 class TreNetCNN(nn.Module):
+    """Initializes CNN model for time series forecast prediction based on the CNN stack in TreNet.
+
+    Args:
+        num_data (int): Size of CNN input
+        layers (int): Number of CNN stack layers
+        num_filters (list[int]): Number of filters per layer
+        dropout (list[float]): Probability of dropout per layer
+        conv_size (int or list[int]): Size of filter sizes per layer
+        pooling_size (int): Size of pooling filter
+        output_size (int): Size of output
+        device (Torch device): Device to store model on
+
+    Returns:
+        None
+    """
+
     def __init__(self, num_data, layers=None, num_filters=None, dropout=None, conv_size=3, pooling_size=3, output_size=2, device=None):
         """
         layers (int): Number of cnn stacks to create
@@ -24,6 +40,12 @@ class TreNetCNN(nn.Module):
         self.cnn_stack = self.create_cnn_stack()
 
     def create_cnn_stack(self):
+        """Creates a CNN stack based on the TreNet CNN implementation. Each stack consists of a 1-dimensional convolution layer, a ReLu activation function, a max pooling layer, and a dropout layer.
+
+        Returns:
+            CNN stack based on the model parameters
+        """
+
         # Initialize default stack settings
         if not self.layers:
             self.layers = 2
@@ -62,7 +84,17 @@ class TreNetCNN(nn.Module):
         # Combine cnn stacks
         return nn.Sequential(*cnn_stacks)
 
+
     def forward(self, x):
+        """ Performs one forward pass of the CNN model
+
+        Args:
+            x (tensor): Time series data
+
+        Returns:
+            Tensor containing outputs of all input data
+        """
+
         x = torch.reshape(x, (x.shape[0], 1, -1))
         output = self.cnn_stack(x)
         return output
