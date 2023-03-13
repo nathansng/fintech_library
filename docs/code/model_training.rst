@@ -6,8 +6,9 @@ Model Training Modules
 Setup
 ----------
 
-[ADD DOCUMENTATION HERE]
-
+find_device
+~~~~~~~~~~~~
+.. autofunction:: models.setup.find_device
 
 
 
@@ -16,4 +17,7 @@ Setup
 Training Executor
 -----------------
 
-[ADD DOCUMENTATION HERE]
+TrainingExecutor
+~~~~~~~~~~~~~~~~~
+.. autoclass:: models.train_models.TrainingExecutor
+    :members:
