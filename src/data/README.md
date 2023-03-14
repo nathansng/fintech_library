@@ -1,16 +1,17 @@
 # Loading in Data
 
-### Step 1: Create ProcessedData object
+### Step 1: Create DataLoader object
 
-- Initialize ProcessedData object
+- Initialize DataLoader object, specify file path of data file
 
 ### Step 2: Load raw data
 
-- Call object_name.load_raw_data(x_col, y_col)
+- Run load_data function to load data in, specify file type
 
-### Step 2: Process raw data
+### Step 3: Format date column
 
-- Call object_name.process_data()
+- Run date_index function to format a string to a datetime object for time series processing, specify date column name and date format
 
-### Step 3: Save processed data in .csv file
-- Call object_name.to_csv(file_path)
+### Step 4: Filter for a specific index
+
+- Run filter_index function to filter for a specific company or stock, specify index column name and index of interest

@@ -9,6 +9,10 @@ Link to FinDL's project website: [https://nathansng.github.io/fintech_library](h
 
 The project website code can be found in the finDL_website branch of this repository.
 
+Link to FinDL's documentation: [https://fintech-library.readthedocs.io/en/latest/code/model_training.html](https://fintech-library.readthedocs.io/en/latest/code/model_training.html)
+
+The project documentation website code can be found in the docs folder of the main branch. 
+
 ### Downloading Data
 
 Our data is downloaded from Kaggle.com. The dataset that we used for our experiment is the Stock Exchange Data created by Cody in 2018. The dataset is available at: https://www.kaggle.com/datasets/mattiuzc/stock-exchange-data. The dataset we used from this Kaggle dataset is "indexProcessed.csv". Save the csv file in the path `./data/raw/`. 
@@ -19,6 +23,7 @@ The following models have been implemented in the current implementation of the 
 
 - CNN
 - LSTM
+- GRU
 - TreNet
 
 The Convolutional Neural Network (CNN) takes raw data points as input, extracts and learns the local feature information, and outputs the predicted local feature. The tuneable parameters of CNN are as follows:
@@ -28,7 +33,6 @@ The Convolutional Neural Network (CNN) takes raw data points as input, extracts 
 - filter size
 - dropout
 - output size
-- learning rate 
 
 The Long Short Term Memory takes the trends' slope and duration, which are extracted by using linear approximation approach on the raw data points, learns the trend dependencies, and outputs the predicted slope and duration of the next trend. The tunable parameters of LSTM are as follows:
 
@@ -36,7 +40,13 @@ The Long Short Term Memory takes the trends' slope and duration, which are extra
 - hidden size
 - number of layers
 - output size
-- learning rate.
+
+The Gated Recurrent Network works similar to LSTM and uses an update and reset gate. It is also used to extract information from the trends' slope and duration. The tunable parameters of GRU are as follows: 
+
+- input size
+- hidden size
+- number of layers
+- output size
 
 TreNet takes the predicted results from both CNN and LSTM, and combines them using a fully connected layer to generate the predicted output. The tunable parameters of TreNet are as follows: 
 
