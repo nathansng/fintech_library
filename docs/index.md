@@ -6,6 +6,8 @@ header:
   actions:
     - label: "Project GitHub Repo"
       url: "https://github.com/nathansng/fintech_library"
+    - label: "FinDL Documentation"
+      url: "https://fintech-library.readthedocs.io/en/latest/"
 gallery:
     - url: /assets/images/FinDL_Stack2.png
       image_path: assets/images/FinDL_Stack2.png

@@ -16,6 +16,12 @@ author:
     - label: "University of California, San Diego"
       icon: "fas fa-university"
       url: "https://ucsd.edu"
+    - label: "FinDL Repo"
+      icon: "fab fa-github"
+      url: "https://github.com/nathansng/fintech_library"
+    - label: "FinDL Documentation"
+      icon: "fas fa-book"
+      url: "https://fintech-library.readthedocs.io/en/latest/"
 
 footer:
   links:
