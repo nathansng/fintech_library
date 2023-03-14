@@ -5,5 +5,5 @@ Data Modules
 
 Data Loader
 ------------
-
-[ADD DOCUMENTATION HERE]
+.. autoclass:: data.data_loader.DataLoader
+    :members:
