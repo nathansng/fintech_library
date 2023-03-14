@@ -12,7 +12,7 @@ class TreNet(nn.Module):
 
     Args:
         LSTM_params (dict): Dictionary containing parameters for LSTM model, see :class:`~models.LSTM.LSTM` for LSTM parameters
-        CNN_params (dict): Dictionary containing parameters for CNN model, see :class:`~models.CNN.CNN` for CNN parameters
+        CNN_params (dict): Dictionary containing parameters for CNN model, see :class:`~models.CNN.TreNetCNN` for CNN parameters
         feature_fusion (int): Size of feature fusion layer
         output_dim (int): Size of model output
         device (Torch device): Device to store model on
