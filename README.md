@@ -9,7 +9,7 @@ Link to FinDL's project website: [https://nathansng.github.io/fintech_library](h
 
 The project website code can be found in the finDL_website branch of this repository.
 
-Link to FinDL's documentation: [https://fintech-library.readthedocs.io/en/latest/code/model_training.html](https://fintech-library.readthedocs.io/en/latest/code/model_training.html)
+Link to FinDL's documentation: [https://fintech-library.readthedocs.io/en/latest/code/overview.html](https://fintech-library.readthedocs.io/en/latest/code/overview.html)
 
 The project documentation website code can be found in the docs folder of the main branch. 
 
